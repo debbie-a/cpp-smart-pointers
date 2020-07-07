@@ -8,8 +8,7 @@ template<typename T>
 class UniquePtr : public SmartPtr<T>, private NonCopyable
 {
 public:
-	UniquePtr(T *ptr = nullptr);
-	
+	UniquePtr(T *ptr);
 };
 
 template<typename T>

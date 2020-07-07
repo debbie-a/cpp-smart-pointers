@@ -23,25 +23,25 @@ public:
 
 private:
 	T *m_ptr;
-	Counter *m_num_copies;
+	Counter *m_numCopies;
 };
 
 template<typename T>
-inline SharedPtr<T>::SharedPtr(T *ptr):m_ptr(ptr),m_num_copies(new Counter(9))
+inline SharedPtr<T>::SharedPtr(T *ptr):m_ptr(ptr),m_numCopies(new Counter())
 {
-	std::cout << m_num_copies->getCounter();
-	 if (ptr)
-            (*m_num_copies)++;
+	if (ptr)
+            (*m_numCopies)++;
+	
 }
 
 template<typename T>
 inline SharedPtr<T>::~SharedPtr()
 {
-	(*m_num_copies)--;
-	if (0 == m_num_copies->getCounter())
+	(*m_numCopies)--;
+	if (0 == m_numCopies->getCounter())
 	{
 		delete m_ptr;
-		delete m_num_copies;
+		delete m_numCopies;
 	}
 
 }
@@ -50,8 +50,8 @@ template<typename T>
 inline SharedPtr<T>::SharedPtr(const SharedPtr<T>& other)
 {
 	m_ptr = other.m_ptr;
-	m_num_copies = other.m_num_copies;
-        (*m_num_copies)++;
+	m_numCopies = other.m_numCopies;
+        (*m_numCopies)++;
 }
 
 template<typename T>
@@ -59,17 +59,18 @@ inline SharedPtr<T>& SharedPtr<T>::operator=(const SharedPtr<T>& other)
 {
 	if(this != other)
 	{
-		if (m_num_copies != nullptr)
+		if (m_numCopies != nullptr)
 		{
-			(*m_num_copies)--;
-			if (0 == m_num_copies->getCounter())
+			(*m_numCopies)--;
+			if (0 == m_numCopies->getCounter())
 			{
 				delete m_ptr;
+				delete m_numCopies;
 			}
 		}
 		m_ptr = other.m_ptr;
-		m_num_copies = other.m_num_copies;
-		(*m_num_copies)++;
+		m_numCopies = other.m_numCopies;
+		(*m_numCopies)++;
 	}
 
 	return *this;
@@ -96,7 +97,7 @@ inline T* SharedPtr<T>::getPtr() const
 template<typename T>
 inline size_t SharedPtr<T>::getNumCopies() const
 {
-	return m_num_copies != nullptr ? (m_num_copies->getCounter()) : 0;
+	return m_numCopies != nullptr ? (m_numCopies->getCounter()) : 0;
 }
 
 template<typename T>
