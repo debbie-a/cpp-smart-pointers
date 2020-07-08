@@ -18,20 +18,20 @@ inline UniquePtr<T>::UniquePtr(T *ptr):SmartPtr<T>(ptr)
 }
 
 template<typename T>
-bool operator==(const UniquePtr<T>& uniquePtr1, const UniquePtr<T>& uniquePtr2)
+inline bool operator==(const UniquePtr<T>& uniquePtr1, const UniquePtr<T>& uniquePtr2)
 {
 	return uniquePtr1.getPtr() == uniquePtr2.getPtr();
 }
 
 template<typename T>
-bool operator!=(const UniquePtr<T>& uniquePtr1, const UniquePtr<T>& uniquePtr2)
+inline bool operator!=(const UniquePtr<T>& uniquePtr1, const UniquePtr<T>& uniquePtr2)
 {
 	return !(uniquePtr1 == uniquePtr2);
 }
 
 
 template<typename T>
-std::ostream& operator<<(std::ostream& cout, const UniquePtr<T>& uniquePtr) 
+inline std::ostream& operator<<(std::ostream& cout, const UniquePtr<T>& uniquePtr) 
 { 
        	cout << uniquePtr.getPtr();
 	return cout;

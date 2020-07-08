@@ -2,7 +2,7 @@
 #define __NON_COPYABLE_H
 
 class NonCopyable 
-//class to prevent using copy-ctor and assignment operator by putting these funcs private and derivg private from this class
+//class to prevent using copy-ctor and assignment operator by putting these funcs private and deriving private from this class
 {
 public:
 	NonCopyable(){}

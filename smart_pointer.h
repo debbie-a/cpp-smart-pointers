@@ -7,11 +7,13 @@ template<typename T>
 class SmartPtr
 {
 public:
-	explicit SmartPtr(T *ptr = nullptr);
+	explicit SmartPtr(T *ptr = NULL);
 	~SmartPtr();
+	SmartPtr& operator=(SmartPtr& other);
 
 	T* operator->();
     	T& operator*();
+	
 	
 	T* getPtr() const;
 	
@@ -29,6 +31,14 @@ template<typename T>
 inline SmartPtr<T>::~SmartPtr()
 {
 	delete m_ptr;
+}
+
+template<typename T>
+inline SmartPtr<T>& SmartPtr<T>::operator=(SmartPtr<T>& other)
+{
+	this->m_ptr = other.m_ptr;
+	other.m_ptr = NULL;
+	return *this;
 }
 
 template<typename T>
