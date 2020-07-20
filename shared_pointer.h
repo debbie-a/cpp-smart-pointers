@@ -71,7 +71,7 @@ inline SharedPtr<T>::SharedPtr(const SharedPtr<U>& other):m_ptr(other.m_ptr),m_n
 template<typename T>
 inline SharedPtr<T>& SharedPtr<T>::operator=(const SharedPtr<T>& other)
 {
-	if (this != other)
+	if (this != &other)
 	{
 		if (m_numCopies != NULL)
 		{
